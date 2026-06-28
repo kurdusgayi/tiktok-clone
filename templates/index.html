@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta charset="UTF-8">
+    <title>تۆرێ جڤاکی - TikTok</title>
+    <style>
+        body {
+            background-color: #121212; /* ڕه‌نگێ ته‌ری ل شاشێ */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: sans-serif;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px; /* مه‌ودایێ د ناڤبه‌را ڤیدیۆیان دا */
+        }
+
+        .video-card {
+            background: #1c1c1c;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        video {
+            width: 100%;
+            border-radius: 15px;
+            background: black;
+        }
+
+        button {
+            background: #fe2c55; /* ڕه‌نگێ TikTok یێ سور */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            margin-top: 10px;
+            background: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ڤیدیۆیێن من</h1>
+    <div id="video-list" class="video-container"></div>
+
+    <script>
+        fetch('/get-videos').then(res => res.json()).then(data => {
+            const list = document.getElementById('video-list');
+            data.videos.forEach(v => {
+                list.innerHTML += `
+                    <div class="video-card">
+                        <h3>${v[1]}</h3>
+                        <video controls src="http://127.0.0.1:8000/${v[2]}"></video>
+                        <br>
+                        <button onclick="likeVideo(${v[0]})">❤️ Like ${v[3]}</button>
+                        <br>
+                        <input type="text" id="c-${v[0]}" placeholder="کۆمێنتێ بنڤیسه‌...">
+                        <button onclick="addComment(${v[0]})">Add</button>
+                    </div>`;
+            });
+        });
+
+        function likeVideo(id) { fetch(`/like/${id}`, { method: 'POST' }).then(() => location.reload()); }
+        function addComment(id) {
+            let text = document.getElementById(`c-${id}`).value;
+            fetch(`/add-comment/${id}?text=${text}`, { method: 'POST' }).then(() => location.reload());
+        }
+    </script>
+</body>
+</html>
