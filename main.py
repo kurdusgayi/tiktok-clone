@@ -1,10 +1,12 @@
+import os
+import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-# ئه‌ڤه‌ په‌لدانکێن ته‌ دبینیت
+# ئه‌ڤ رێکا په‌لدانکا ته‌ دبینیت
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -12,8 +14,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-import os
+# ئه‌ڤ هێلێن خوارێ پۆرتێ ب دروستی دده‌ن
 if __name__ == "__main__":
-    import uvicorn
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run("main:app", host="0.0.0.0", port=port)
