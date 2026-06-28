@@ -11,16 +11,21 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-# ڤه‌شارتنا بکارئینه‌ران د لیسته‌یه‌کا ساده‌ دا
 users = {}
 
 @app.get("/")
 def read_root(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        request=request, 
+        name="index.html"
+    )
 
 @app.get("/signup")
 def signup_page(request: Request):
-    return templates.TemplateResponse("signup.html", {"request": request})
+    return templates.TemplateResponse(
+        request=request, 
+        name="signup.html"
+    )
 
 @app.post("/signup")
 def register(username: str = Form(...), password: str = Form(...)):
