@@ -1,14 +1,16 @@
-import os
-import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"message": "Hello from TikTok Clone!"}
+# ڤێ په‌لدانکا templatesـێ بۆ HTML فایلان دیار دکه‌ت
+templates = Jinja2Templates(directory="templates")
 
-if __name__ == "__main__":
-    # Railway دێ ب ڤێ رێزێ پۆرتی دابین کەت
-    port = int(os.environ.get("PORT", 8080))
-    uvicorn.run("main:app", host="0.0.0.0", port=port)
+# ڤێ په‌لدانکا staticـێ بۆ CSS و وێنان دیار دکه‌ت
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+def read_root(request: Request):
+    # دێ فایلا index.html نیشان ده‌ت
+    return templates.TemplateResponse("index.html", {"request": request})
