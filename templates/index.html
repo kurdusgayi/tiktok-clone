@@ -1,35 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TikTok Clone</title>
-    <style>
-        body { margin: 0; background-color: black; color: white; font-family: sans-serif; overflow: hidden; }
-        .video-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
-        .video-slide { position: relative; width: 100%; height: 100vh; scroll-snap-align: start; }
-        video { width: 100%; height: 100%; object-fit: cover; }
-        .info { position: absolute; bottom: 20px; left: 20px; z-index: 10; }
-        .sidebar { position: absolute; right: 10px; bottom: 100px; display: flex; flex-direction: column; gap: 20px; z-index: 10; }
-        .sidebar button { background: none; border: none; color: white; font-size: 30px; cursor: pointer; }
-    </style>
 </head>
 <body>
 
-<div class="video-container">
-    <div class="video-slide">
-        <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay loop muted playsinline></video>
-        <div class="info">
-            <h3>@bawar_mirza</h3>
-            <p>سایتێ من یێ تیکتۆک کلۆن</p>
-        </div>
-        <div class="sidebar">
-            <button>❤️</button>
-            <button>💬</button>
-            <button>↗️</button>
-        </div>
+    <div style="padding: 20px; font-family: sans-serif;">
+        {% if username %}
+            <h2 style="color: #fe2c55;">سڵاو، {{ username }}!</h2>
+        {% else %}
+            <a href="/signup">Sign Up / Login</a>
+        {% endif %}
     </div>
-</div>
+
+    <h1>ڤیدیۆیا ته‌</h1>
+    <video width="320" height="500" controls>
+        <source src="/static/video.mp4" type="video/mp4">
+    </video>
 
 </body>
 </html>
