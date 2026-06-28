@@ -7,10 +7,11 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-# ئه‌ڤه‌ بۆ ناسینا فایلێن ستاتیک و تێمپلێتان
+# ناسینا فایلێن ستاتیک (وه‌کی وێنه‌ و css) و تێمپلێتان
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
+# لیسته‌یه‌کا ساده‌ بۆ ڤه‌شارتنا بکارئینه‌ران
 users = {}
 
 @app.get("/")
@@ -30,6 +31,7 @@ def signup_page(request: Request):
 @app.post("/signup")
 def register(username: str = Form(...), password: str = Form(...)):
     users[username] = password
+    print(f"ئه‌کاونتێ نوو هاته‌ دروستکرن: {username}") # دێ ل Logsـێ دیار بیت
     return RedirectResponse(url="/", status_code=303)
 
 if __name__ == "__main__":
