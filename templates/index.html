@@ -5,21 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TikTok Clone</title>
     <style>
-        body { margin: 0; background-color: black; color: white; display: flex; justify-content: center; }
-        .video-container { width: 100%; max-width: 400px; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
-        .video-slide { width: 100%; height: 100vh; scroll-snap-align: start; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #333; }
+        body { margin: 0; background-color: black; color: white; font-family: sans-serif; overflow: hidden; }
+        .video-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+        .video-slide { position: relative; width: 100%; height: 100vh; scroll-snap-align: start; }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .info { position: absolute; bottom: 20px; left: 20px; }
     </style>
 </head>
 <body>
 
-    <div class="video-container">
-        <div class="video-slide">
-            <h1>ڤیدیۆیێن من</h1>
-        </div>
-        <div class="video-slide">
-            <h1>ڤیدیۆیا دووێ</h1>
+<div class="video-container">
+    <!-- ڤیدیۆیا ئێکێ -->
+    <div class="video-slide">
+        <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay loop muted></video>
+        <div class="info">
+            <h3>@bawar_mirza</h3>
+            <p>ئه‌ڤه‌ ڤیدیۆیا من یا ئێکێ ل سه‌ر تیکتۆک کلۆن!</p>
         </div>
     </div>
+</div>
 
 </body>
 </html>
